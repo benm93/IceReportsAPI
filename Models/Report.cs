@@ -11,7 +11,7 @@ namespace IceReportsAPI.Models
         public int ReportId { get; set; }
         public int Rating { get; set; }
         public String Description { get; set; }
-        public String Area { get; set; }
+        public Area Area { get; set; }
         public List<Picture> Pictures { get; set; }
         public List<Climb> Climbs { get; set; }
     }

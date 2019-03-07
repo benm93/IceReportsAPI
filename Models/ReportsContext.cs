@@ -13,5 +13,6 @@ namespace EFGetStarted.AspNetCore.NewDb.Models
         public DbSet<Report> Reports { get; set; }
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Climb> Climbs { get; set; }
+        public DbSet<Area> Areas { get; set; }
     }
 }

@@ -11,9 +11,10 @@ using System;
 namespace IceReportsAPI.Migrations
 {
     [DbContext(typeof(ReportsContext))]
-    partial class ReportsContextModelSnapshot : ModelSnapshot
+    [Migration("20190307131736_MakeAreaSingular")]
+    partial class MakeAreaSingular
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

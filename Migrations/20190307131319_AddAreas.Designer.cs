@@ -11,9 +11,10 @@ using System;
 namespace IceReportsAPI.Migrations
 {
     [DbContext(typeof(ReportsContext))]
-    partial class ReportsContextModelSnapshot : ModelSnapshot
+    [Migration("20190307131319_AddAreas")]
+    partial class AddAreas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +28,11 @@ namespace IceReportsAPI.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int?>("ReportId");
+
                     b.HasKey("AreaId");
+
+                    b.HasIndex("ReportId");
 
                     b.ToTable("Areas");
                 });
@@ -69,17 +74,20 @@ namespace IceReportsAPI.Migrations
                     b.Property<int>("ReportId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AreaId");
-
                     b.Property<string>("Description");
 
                     b.Property<int>("Rating");
 
                     b.HasKey("ReportId");
 
-                    b.HasIndex("AreaId");
-
                     b.ToTable("Reports");
+                });
+
+            modelBuilder.Entity("IceReportsAPI.Models.Area", b =>
+                {
+                    b.HasOne("IceReportsAPI.Models.Report")
+                        .WithMany("Areas")
+                        .HasForeignKey("ReportId");
                 });
 
             modelBuilder.Entity("IceReportsAPI.Models.Climb", b =>
@@ -94,13 +102,6 @@ namespace IceReportsAPI.Migrations
                     b.HasOne("IceReportsAPI.Models.Report")
                         .WithMany("Pictures")
                         .HasForeignKey("ReportId");
-                });
-
-            modelBuilder.Entity("IceReportsAPI.Models.Report", b =>
-                {
-                    b.HasOne("IceReportsAPI.Models.Area", "Area")
-                        .WithMany()
-                        .HasForeignKey("AreaId");
                 });
 #pragma warning restore 612, 618
         }
