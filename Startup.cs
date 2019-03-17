@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,9 +16,11 @@ namespace IceReportsAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             Configuration = configuration;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public IConfiguration Configuration { get; }
@@ -26,7 +29,10 @@ namespace IceReportsAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=IceReports;Trusted_Connection=True;ConnectRetryCount=0";
+            String user = Environment.GetEnvironmentVariable("IR_DEV_USER");
+            String password = Environment.GetEnvironmentVariable("IR_DEV_PASSWORD");
+            String server = Environment.GetEnvironmentVariable("IR_DEV_SERVER");
+            var connection = $@"Server={server};Database=IceReports;User Id={user}; Password={password};";
             services.AddDbContext<ReportsContext>
                 (options => options.UseSqlServer(connection));
         }

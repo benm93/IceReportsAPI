@@ -28,6 +28,13 @@ namespace IceReportsAPI.Controllers
             return _context.Reports;
         }
 
+        // GET: api/Reports
+        [HttpGet("/area/{area}")]
+        public IEnumerable<Report> GetReportsForArea([FromRoute] String area)
+        {
+            return _context.Reports.Where(b => b.Area.Name == area);
+        }
+
         // GET: api/Reports/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetReport([FromRoute] int id)
